@@ -1,0 +1,4 @@
+** instalar o tailwindcss 
+npm install -D tailwindcss postcss autoprefixer vite
+npm tailwindcss init
+** extensões do tailwindcss e postcss
