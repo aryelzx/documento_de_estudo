@@ -1,5 +1,8 @@
 import React from 'react'
-import { useState, useCallback, useMemo, useRef } from 'react'
+import { useState, useCallback, useMemo, useRef, useContext } from 'react'
+import { InputLogin } from '../login/components/InputLogin'
+import { ButtonLogin } from '../login/components/ButtonLogin'
+import { UsuarioLogadoContext } from '../context/UsuarioLogado'
 
 function Contact() {
   /* useState é usado para criar um estado para o componente,
@@ -30,13 +33,11 @@ function Contact() {
     setCount(count + 1);
   }, [count]);
   
-  function Button({ onClick }) {
-    console.log('Rendering button...');
-  
+  const Button = ({ onClick }) => {  
     return <button onClick={onClick}>Increment count</button>;
   }
 
-
+  const {nomeDoUsuario} = useContext(UsuarioLogadoContext);
   return (
     <div className=' w-full border-2 flex h-28 bg-blue-700 rounded-xl items-center justify-center'>
       <div className='work'>
@@ -47,30 +48,28 @@ function Contact() {
       <h1>Count: {count}</h1>
       <Button onClick={increment} />
     </div>
-
           <p>Quantidade de caracteres no nome: {nameLength}</p>
           <form>
-            <label>
-              <span>Nome:</span>
-              <input
-               value={name}
-               onChange={e => setName(e.target.value)}
-               onKeyDown = {e => { e.key === 'Enter' && inputPasswordRef.current?.focus() }}
-               />
-            </label>
-            <label>
-              <span>Senha:</span>
-              <input 
-              ref={inputPasswordRef}
-              type="password"
+            <InputLogin 
+              label="Nome:"
+              value={name}
+              onChange={newValue => setName(newValue)}
+              onPressEnter={() => inputPasswordRef.current?.focus()}
+            />
+            <InputLogin
+              type='password'
+              label="Senha:"
               value={password}
-              onChange={e => setPassword(e.target.value)} />
-            </label>
-            <button type="button" onClick={handleEntrar}>Enviar</button>
+              ref={inputPasswordRef}
+              onChange={newValue => setPassword(newValue)}
+            />
+            <ButtonLogin type="button" onClick={handleEntrar}>Entrar</ButtonLogin>
+            <ButtonLogin type="button" onClick={handleEntrar}>Cadastrar-se</ButtonLogin>
           </form>
+          <p>Usuário Logado:</p>
+          <p>{nomeDoUsuario}</p>
       </div>
     </div>
   )
 }
-
 export default Contact

@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import { Header } from "./components/Header";
 import { useContext } from "react";
 import { ThemeContext } from "./context/ThemeContext";
+import { UsuarioLogadoProvider } from "./context/UsuarioLogado";
 export default function App() {
 /*
   Todos os componentes que serão renderizados dentro do RouterProvider, Precisam estar no App.jsx
@@ -10,8 +11,10 @@ export default function App() {
 const { theme } = useContext(ThemeContext); // 7- pegando o tema do ThemeContext
 return (
     <div className={`App ${theme === "dark" ? "dark-theme" : ""} `}  > {/* 8- adicionando a classe dark-theme caso o tema seja dark */}
+      <UsuarioLogadoProvider>
       <Header />
       <Outlet /> {/* 6- renderizando o componente da rota filho*/}
+      </UsuarioLogadoProvider>
     </div>
   )
 }
