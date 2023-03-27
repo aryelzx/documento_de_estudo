@@ -64,7 +64,6 @@ function Contact() {
               onChange={newValue => setPassword(newValue)}
             />
             <ButtonLogin type="button" onClick={handleEntrar}>Entrar</ButtonLogin>
-            <ButtonLogin type="button" onClick={handleEntrar}>Cadastrar-se</ButtonLogin>
           </form>
           <p>Usuário Logado:</p>
           <p>{nomeDoUsuario}</p>

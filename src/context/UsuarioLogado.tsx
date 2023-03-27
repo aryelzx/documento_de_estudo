@@ -1,4 +1,4 @@
-import React, { createContext } from 'react';
+import React, { createContext, useState } from 'react';
 
 interface IUsuarioLogadoContextData { //interface para tipar as propriedades do componente
   nomeDoUsuario: string;
@@ -15,5 +15,5 @@ export const UsuarioLogadoProvider: React.FC <IUsuarioLogadoProviderProps> = ({ 
     <UsuarioLogadoContext.Provider value={{nomeDoUsuario: 'Aryel Ramos'}}> {/*passa o valor inicial do contexto para o Provider*/}
       {children} {/*renderiza os filhos do componente*/}
     </UsuarioLogadoContext.Provider>
-  );
+  ); 
 };
