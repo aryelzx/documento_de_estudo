@@ -2,6 +2,7 @@ import React from 'react'
 import { useContext } from 'react'
 import { ThemeContext } from '../context/ThemeContext'
 import { UsuarioLogadoContext } from '../context/UsuarioLogado'
+import Data from '../components/Data'
 
 function Home() {
   //importando o contexto
@@ -16,6 +17,7 @@ function Home() {
       <button className={`${theme === "dark" ? "p-2 bg-slate-800 text-yellow-500" : ""}`} onClick={toggleTheme}>Mudar tema</button>
       <p className={`${theme === "dark" ? "p-2 bg-black text-yellow-500" : ""}`}> O tema atual é: {theme}</p>
       <p className={`${theme === "dark" ? "p-2 bg-black text-yellow-500" : ""}`}> O usuário logado é: {nomeDoUsuario}</p>
+      <Data />
     </div>
   )
 }
