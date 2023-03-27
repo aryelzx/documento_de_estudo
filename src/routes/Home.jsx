@@ -3,6 +3,7 @@ import { useContext } from 'react'
 import { ThemeContext } from '../context/ThemeContext'
 import { UsuarioLogadoContext } from '../context/UsuarioLogado'
 import Data from '../components/Data'
+import ChangeTitleOfPage from '../components/ChangeTitleOfPage'
 
 function Home() {
   //importando o contexto
@@ -18,6 +19,7 @@ function Home() {
       <p className={`${theme === "dark" ? "p-2 bg-black text-yellow-500" : ""}`}> O tema atual é: {theme}</p>
       <p className={`${theme === "dark" ? "p-2 bg-black text-yellow-500" : ""}`}> O usuário logado é: {nomeDoUsuario}</p>
       <Data />
+      <ChangeTitleOfPage/>
     </div>
   )
 }

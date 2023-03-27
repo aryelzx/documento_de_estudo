@@ -11,6 +11,7 @@ export default function App() {
 const { theme } = useContext(ThemeContext); // 7- pegando o tema do ThemeContext
 return (
     <div className={`App ${theme === "dark" ? "dark-theme" : ""} `}  > {/* 8- adicionando a classe dark-theme caso o tema seja dark */}
+      
       <UsuarioLogadoProvider> {/* 5- envolvendo o Header e o Outlet com o Provider. compartilhando a informação do contexto */}
       <Header />
       <Outlet /> {/* 6- renderizando o componente da rota filho*/}
