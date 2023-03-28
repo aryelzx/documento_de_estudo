@@ -1,15 +1,21 @@
 import React, {useContext} from 'react'
+
 import { ThemeContext } from '../context/ThemeContext'
-import { UsuarioLogadoContext } from '../context'
 import { TesteContext } from '../context'
+
 import Data from '../components/Data'
 import ChangeTitleOfPage from '../components/ChangeTitleOfPage'
 
+import { useUsuarioLogado } from '../hooks'
+
 function Home() {
   //importando o contexto
-  const {nomeDoUsuario} = useContext(UsuarioLogadoContext) // 9- pegando o nome do usuário do contexto
-  const{ theme, toggleTheme} = useContext(ThemeContext)
   const {Teste} = useContext(TesteContext)
+  const{ theme, toggleTheme} = useContext(ThemeContext)
+
+  //exemplo com o Hook personalizado
+  const {nomeDoUsuario} = useUsuarioLogado() // 9- pegando o nome do usuário do contexto
+  
 
   return (
     <div className={`${theme === "dark" ? "h-[84vh] w-full bg-black text-yellow-500" : "" } ` }>

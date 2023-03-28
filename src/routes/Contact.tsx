@@ -13,6 +13,8 @@ function Contact() {
   const [password, setPassword] = useState('')
   const [count, setCount] = useState(0);
 
+  
+
   /* useRef é usado para criar uma referência para um elemento do DOM,
       ou seja, é possível acessar o elemento do DOM através da referência */
   const inputPasswordRef = useRef<HTMLInputElement>(null);
@@ -37,7 +39,8 @@ function Contact() {
     return <button onClick={onClick}>Increment count</button>;
   }
 
-  const {nomeDoUsuario} = useContext(UsuarioLogadoContext);
+  const {nomeDoUsuario, logout} = useContext(UsuarioLogadoContext);
+
   return (
     <div className=' w-full border-2 flex h-28 bg-blue-700 rounded-xl items-center justify-center'>
       <div className='work'>
@@ -65,8 +68,9 @@ function Contact() {
             />
             <ButtonLogin type="button" onClick={handleEntrar}>Entrar</ButtonLogin>
           </form>
-          <p>Usuário Logado:</p>
-          <p>{nomeDoUsuario}</p>
+          <p>Usuário Logado: {nomeDoUsuario}</p>
+          <button onClick={logout}>Logout</button>
+          
       </div>
     </div>
   )
