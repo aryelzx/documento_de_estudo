@@ -1,7 +1,7 @@
-import React from 'react'
-import { useContext } from 'react'
+import React, {useContext} from 'react'
 import { ThemeContext } from '../context/ThemeContext'
-import { UsuarioLogadoContext } from '../context/UsuarioLogado'
+import { UsuarioLogadoContext } from '../context'
+import { TesteContext } from '../context'
 import Data from '../components/Data'
 import ChangeTitleOfPage from '../components/ChangeTitleOfPage'
 
@@ -9,6 +9,7 @@ function Home() {
   //importando o contexto
   const {nomeDoUsuario} = useContext(UsuarioLogadoContext) // 9- pegando o nome do usuário do contexto
   const{ theme, toggleTheme} = useContext(ThemeContext)
+  const {Teste} = useContext(TesteContext)
 
   return (
     <div className={`${theme === "dark" ? "h-[84vh] w-full bg-black text-yellow-500" : "" } ` }>
@@ -20,6 +21,7 @@ function Home() {
       <p className={`${theme === "dark" ? "p-2 bg-black text-yellow-500" : ""}`}> O usuário logado é: {nomeDoUsuario}</p>
       <Data />
       <ChangeTitleOfPage/>
+      <p className={`${theme === "dark" ? "p-2 bg-black text-yellow-500" : ""}`}>{Teste}</p>
     </div>
   )
 }
