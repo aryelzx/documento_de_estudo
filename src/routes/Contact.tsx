@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useCallback, useMemo, useRef, useContext } from 'react'
 import { InputLogin } from '../login/components/InputLogin'
 import { ButtonLogin } from '../login/components/ButtonLogin'
-import { UsuarioLogadoContext } from '../context/UsuarioLogado'
+import { useUsuarioLogado } from '../hooks'
 
 function Contact() {
   /* useState é usado para criar um estado para o componente,
@@ -39,7 +39,7 @@ function Contact() {
     return <button onClick={onClick}>Increment count</button>;
   }
 
-  const {nomeDoUsuario, logout} = useContext(UsuarioLogadoContext);
+  const {nomeDoUsuario, logout, user} = useUsuarioLogado();
 
   return (
     <div className=' w-full border-2 flex h-28 bg-blue-700 rounded-xl items-center justify-center'>
@@ -68,7 +68,10 @@ function Contact() {
             />
             <ButtonLogin type="button" onClick={handleEntrar}>Entrar</ButtonLogin>
           </form>
+          <h3>Informações de Usuário:</h3>
           <p>Usuário Logado: {nomeDoUsuario}</p>
+          <p>Email: {user.email}</p>
+          <p>senha: {user.senha}</p>
           <button onClick={logout}>Logout</button>
           
       </div>
