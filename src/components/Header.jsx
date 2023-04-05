@@ -13,6 +13,9 @@ export function Header() {
         <li>
           <Link to="/contact">CONTACT</Link>
         </li>
+        <li>
+          <Link to="/others">OTHERS</Link>
+        </li>
       </ul>
     </div>
   )

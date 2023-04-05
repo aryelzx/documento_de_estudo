@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client'
 import App from "./App";
 import Home from "./routes/Home";
 import Contact from "./routes/Contact";
+import Others from './routes/Others';
 
 // 1- configurando router
 import {createBrowserRouter, RouterProvider} from 'react-router-dom' // 2-importando o router
@@ -19,6 +20,10 @@ const router = createBrowserRouter([ // 3- criando o router
       path: "/contact",
       element: <Contact />,
     },
+    {
+      path: "/others",
+      element: <Others />,
+    }
   ]
   },
 ])
