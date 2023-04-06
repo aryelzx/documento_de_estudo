@@ -1,24 +1,14 @@
 {
-  "posts": [
+  "tarefas": [
     {
-      "title": "Criando um post",
-      "author": "Hare",
-      "id": 3
+      "id": 1,
+      "title": "Trefa 01",
+      "isCompleted": false
     },
     {
-      "title": "Criando um post",
-      "author": "Hare",
-      "id": 4
+      "title": "Tarefa 02",
+      "isCompleted": false,
+      "id": 2
     }
-  ],
-  "comments": [
-    {
-      "id": 1, 
-      "body": "some comment",
-      "postId": 1
-    }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }
