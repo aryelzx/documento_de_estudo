@@ -1,35 +1,77 @@
-import React, {useCallback, useState} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
+import { ITarefa, TarefasService } from '../services/api/tarefas/TarefasService';
+import { ApiException } from '../services/api/ErrorException';
 
-interface ITarefa {
-  id: number
-  title: string;
-  isCompleted: boolean;
-}
+ 
 export default function Others() {
   const [lista, setLista] = useState<ITarefa[]>([])
   
-  const handleInputKeyDown: React.KeyboardEventHandler<HTMLInputElement> = useCallback((e) =>{
-    if(e.key === 'Enter'){
-      if(e.currentTarget.value.trim().length === 0) return;
-
-      const value = e.currentTarget.value;
-
-      e.currentTarget.value = '';
-      //adiciona o valor no array
-      setLista((oldLista) => {
-        //se o valor já existir na lista, não faz nada || some retorna true se pelo menos um item do array satisfazer a condição
-        if(oldLista.some((listItem) => listItem.title === value)) return oldLista;
-        //retorna um novo array com o valor adicionado
-        return [...oldLista,
-           {
-            id: oldLista.length,
-            title: value,
-            isCompleted: false
-          }]
+  //função para carregar a lista de itens. ou mostra erro, ou atualiza o estado da lista
+  useEffect(() => {
+      //chama a função getAll da api
+      TarefasService.getAll()
+      //se o resultado for uma instância de ApiException, mostra o erro
+      .then((result) =>{
+        if(result instanceof ApiException){
+          alert(result.message)
+        //se não, atualiza o estado da lista
+        }else{
+          setLista(result)        }
       })
+  }, []) 
+  //função para adicionar um novo item na lista
+  const handleInputKeyDown: React.KeyboardEventHandler<HTMLInputElement> = useCallback((e) =>{
+    //se a tecla pressionada for enter
+    if(e.key === 'Enter'){
+      //se o valor do input for vazio, não faz nada
+      if(e.currentTarget.value.trim().length === 0) return;
+      //pega o valor do input
+      const value = e.currentTarget.value;
+      //limpa o valor do input
+      e.currentTarget.value = '';
+      //se o valor do input já existir na lista, não faz nada
+      if(lista.some((listItem) => listItem.title === value)) return;
+      //cria um novo item e adiciona na lista
+      TarefasService.create({title: value, isCompleted: false})
+      .then((result) => {
+        //se o resultado for uma instância de ApiException, mostra o erro
+        if(result instanceof ApiException){
+          alert(result.message)
+        //se não, atualiza o estado da lista
+        }else{
+          setLista((oldLista) => [...oldLista, result])
+        }
+      });     
     }
-  },[])
+  }, [lista])
 
+  const handleToggleComplete = useCallback((id: number) => {
+    //pega o item que foi clicado
+    const tarefaToUpdate = lista.find((tarefa) => tarefa.id === id)
+    if(!tarefaToUpdate) return;
+    //atualiza o valor de isCompleted
+    TarefasService.updateById(id, {
+      //pega todos os valores do item e sobrescreve o valor de isCompleted
+      ...tarefaToUpdate,
+      //inverte o valor de isCompleted se for true, se for false, deixa como false
+      isCompleted: !tarefaToUpdate.isCompleted,
+    })
+    //se o resultado for uma instância de ApiException, mostra o erro
+    .then((result) => {
+      if(result instanceof ApiException){
+        alert(result.message)
+      }else{
+        //se não, atualiza o estado da lista
+        setLista(oldLista => {
+           return oldLista.map(oldListItem => {
+            if(oldListItem.id === id) return result
+            return oldListItem
+             })
+           })
+      }
+    })
+    //atualiza o estado da lista com o novo valor de isCompleted
+  },[lista])
   return (
     <div>
       <p>Lista</p>
@@ -49,24 +91,8 @@ export default function Others() {
             <input 
               type="checkbox"
               checked={ListItem.isCompleted}
-              onChange={() => {
-                //atualiza o estado da lista com o novo valor de isCompleted
-                // map percorre o array e retorna um novo array com os valores atualizados
-                setLista(oldLista => {
-                  return oldLista.map(oldListItem => {
-                    //se o título do item for igual ao título do item clicado, inverte o valor de isCompleted
-                    const newisCompleted = oldListItem.title === ListItem.title 
-                    ? !oldListItem.isCompleted 
-                    : oldListItem.isCompleted;
-                    //retorna um novo objeto com o valor de isSelected atualizado
-                    return{
-                      ...oldListItem,
-                      isCompleted: newisCompleted
-                    }
-                  })
-                })
-              }}
-              />
+              onChange={() => handleToggleComplete(ListItem.id)}
+            />
               {/* mostra o título do item */}
             {ListItem.title}</li>
         } )}
