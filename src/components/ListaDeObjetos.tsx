@@ -44,7 +44,7 @@ export default function Others() {
       });     
     }
   }, [lista])
-
+  //função para atualizar o valor de isCompleted
   const handleToggleComplete = useCallback((id: number) => {
     //pega o item que foi clicado
     const tarefaToUpdate = lista.find((tarefa) => tarefa.id === id)
@@ -71,11 +71,25 @@ export default function Others() {
       }
     })
     //atualiza o estado da lista com o novo valor de isCompleted
-  },[lista])
+  },[lista]) 
+  //função para deletar um item da lista
+  const handleDelete = useCallback((id: number) => {
+    TarefasService.deleteById(id)
+    .then((result) => {
+      if(result instanceof ApiException){
+        alert(result.message)
+      }else{
+        //removendo o item da lista pelo id se o id for igual ao id do item clicado
+        setLista(oldLista => {
+           return oldLista.filter(oldListItem => oldListItem.id !== id)
+        })
+      }
+    })
+  },[])
+
   return (
     <div>
       <p>Lista</p>
-
       <input
         className='border-2 border-black rounded-md p-2'
         onKeyDown={handleInputKeyDown}
@@ -94,7 +108,12 @@ export default function Others() {
               onChange={() => handleToggleComplete(ListItem.id)}
             />
               {/* mostra o título do item */}
-            {ListItem.title}</li>
+            {ListItem.title}
+            <button
+             onClick={() => handleDelete(ListItem.id)}
+             className='bg-red-500 text-white rounded-md p-2'            
+            >Apagar</button>
+            </li>
         } )}
       </ul>
     </div>

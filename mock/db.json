@@ -1,23 +1,18 @@
 {
   "tarefas": [
     {
-      "id": 1,
-      "title": "Trefa 01",
-      "isCompleted": false
-    },
-    {
       "title": "Tarefa 02",
       "isCompleted": false,
       "id": 2
     },
     {
       "title": "Tarefa 03",
-      "isCompleted": false,
+      "isCompleted": true,
       "id": 3
     },
     {
       "title": "estudar ingles",
-      "isCompleted": true,
+      "isCompleted": false,
       "id": 4
     }
   ]

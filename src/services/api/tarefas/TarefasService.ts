@@ -47,7 +47,7 @@ const updateById = async (id: number, dataToUpdate: ITarefa): Promise<ITarefa | 
   }
 }
 
-const deleteById = () => async (id: number): Promise<undefined | ApiException> => {
+const deleteById = async (id: number): Promise<undefined | ApiException> => {
   try{
     await Api().delete(`/tarefas/${id}`)
     return undefined;
